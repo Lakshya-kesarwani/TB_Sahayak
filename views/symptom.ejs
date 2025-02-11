@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Symptom Prediction</title>
+</head>
+
+<body>
+    <form id="symptomForm">
+        <label for="symptom">Symptom:</label>
+        <input type="text" name="symptom" id="symptom">
+        <br>
+        <label for="age">Age:</label>
+        <input type="text" name="age" id="age">
+        <br>
+        <button type="submit">Predict</button>
+    </form>
+    <p id="result"></p>
+
+    <script>
+        document.getElementById("symptomForm").addEventListener("submit", async function (event) {
+            event.preventDefault(); // Prevent form from refreshing
+            console.log("Form submitted!");
+            let symptom = document.getElementById("symptom").value;
+            let age = document.getElementById("age").value;  
+
+            console.log(symptom)
+            // Fetch response from backend
+            try {
+                let response = await fetch("https://flask-tb-sahayak.onrender.com/pred-symptoms", {  // Ensure the correct port
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({data:{ symptom, age }})
+                });
+                console.log("Response received:", response);
+                if (!response.ok) {
+                    throw new Error("Server returned an error!");
+                }
+                let data = await response.json(); // Expecting JSON object
+
+                console.log("Data received:", data);
+                document.getElementById("result").innerText = "Predicted Disease: " + data['prediction'];
+            } catch (error) {
+                console.error("Error:", error);
+                document.getElementById("result").innerText = "Error fetching data!";
+            }
+
+        });
+    </script>
+</body>
+
+</html>

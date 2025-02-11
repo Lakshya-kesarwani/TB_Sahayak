@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f8fb;
+        }
+
+        /* Navbar Styling */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #6cc8a1;
+            padding: 15px 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Logo/Image styling */
+        .logo {
+            height: 40px;
+            width: auto;
+            mix-blend-mode: multiply;
+        }
+
+        /* Navbar links styling */
+        .navbar-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .navbar-links a {
+            text-decoration: none;
+            color: #ffffff;
+            font-size: 1.2em;
+            padding: 12px 25px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar-links a:hover {
+            background-color: #56a585;
+        }
+
+        .navbar-links a:focus {
+            outline: none;
+            border: 2px solid #56a585;
+            box-shadow: 0 0 10px rgba(86, 165, 133, 0.5);
+        }
+
+        /* Image Section Below Navbar */
+        .image-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #ffffff;
+        }
+
+        .image-container img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover; /* Ensures the image covers the entire container without distortion */
+        }
+
+        /* Media query for smaller devices */
+        @media (max-width: 600px) {
+            .navbar-links a {
+                padding: 10px 20px;
+                font-size: 1.1em;
+            }
+
+            .image-container img {
+                object-fit: contain; /* Ensures image doesn't stretch on small screens */
+            }
+        }
+
+    </style>
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <img src="\public\images\logo.jpg" alt="Home" class="logo">
+        <div class="navbar-links">
+            <a href="/find">Find</a>
+            <a href="/guide">Guide</a>
+            <a href="/symptom">Symptoms</a>
+            <a href="/xray">X-ray</a>
+        </div>
+    </nav>
+
+    <!-- Image Section Below Navbar -->
+    <div class="image-container">
+        <img src="\public\images\img.png" alt="Medical Image or Banner">
+    </div>
+
+</body>
+
+</html>

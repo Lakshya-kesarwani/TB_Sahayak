@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nearby Health Facilities</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ api_key }}&libraries=places"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&amp;display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <style>
+        /* CSS styles will go here (or in a separate .css file) */
+
+        /* Navbar CSS from Contact Us page */
+        :root {
+            --primary-blue: #4c8bf5;
+            --secondary-blue: #4d7dbb;
+            --nav-height: 80px;
+        }
+
+        .navbar {
+            background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+            height: var(--nav-height);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 0 1rem;
+        }
+
+        .navbar-brand {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-icon {
+            font-size: 1.8rem;
+            margin-right: 0.8rem;
+            transform: rotate(0deg);
+            transition: transform 0.3s ease;
+        }
+
+        .navbar-brand:hover .logo-icon {
+            transform: rotate(-15deg);
+        }
+
+        .brand-text {
+            color: white;
+            font-size: 1.5rem;
+            position: relative;
+        }
+
+        .nav-link {
+            color: rgba(255, 255, 255, 0.9) !important;
+            font-weight: 500;
+            padding: 0.8rem 1.2rem !important;
+            margin: 0 0.5rem;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: white;
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover {
+            transform: translateY(-2px);
+            opacity: 1;
+        }
+
+        .nav-link:hover::before {
+            width: 100%;
+        }
+
+        .navbar-toggler {
+            border: none;
+            padding: 0.5rem;
+        }
+
+        .toggler-icon {
+            display: block;
+            width: 24px;
+            height: 2px;
+            background: white;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(2) {
+            opacity: 0;
+        }
+
+        .navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu */
+        @media (max-width: 991px) {
+            .navbar-collapse {
+                background: rgba(76, 139, 245, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 1rem;
+                margin-top: 1rem;
+                border-radius: 10px;
+            }
+
+            .nav-link {
+                margin: 0.5rem 0;
+                padding: 0.8rem 1rem !important;
+                border-radius: 8px;
+            }
+
+            .nav-link:hover {
+                background: rgba(255, 255, 255, 0.1);
+            }
+        }
+
+
+        /* General Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f8fb;
+        }
+
+
+        /* Map Specific Styles */
+        #map {
+            height: 80vh;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        #controls {
+            margin: 20px;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            /* Center the buttons */
+        }
+
+        #controls button {
+            background-color: #4c8bf5;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+
+        #controls button:hover {
+            background-color: #4d7dbb;
+        }
+
+        #controls button:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(86, 165, 133, 0.5);
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            #controls {
+                flex-direction: column;
+                /* Stack buttons on smaller screens */
+                align-items: center;
+                /* Center items when stacked */
+            }
+
+            #controls button {
+                width: 100%;
+                /* Make buttons full width on smaller screens */
+                margin-bottom: 10px;
+                /* Add some spacing between stacked buttons */
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container-fluid">
+            <!-- Brand with subtle animation -->
+            <a class="navbar-brand" href="#">
+                <span class="logo-icon">🩺</span>
+                <span class="brand-text">TB Sahayak</span>
+            </a>
+
+            <!-- Hamburger Icon with animation -->
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+                <span class="toggler-icon"></span>
+            </button>
+
+            <!-- Nav Items -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/guide">Guide</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/find">Find Doctors</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/symptom">Symptoms</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/xray">X-ray</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div id="map" style="margin-top: 100px;"></div>
+
+    <div id="controls">
+        <button onclick="getUserLocation()">My Location</button>
+        <button onclick="calculateRoute()">Get Directions</button>
+    </div>
+
+    <script>
+        let map, service, directionsRenderer, directionsService;
+        let userMarker, userLocation, selectedPlace;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 15
+            });
+            service = new google.maps.places.PlacesService(map);
+            directionsRenderer = new google.maps.DirectionsRenderer();
+            directionsService = new google.maps.DirectionsService();
+            directionsRenderer.setMap(map);
+            getUserLocation();
+        }
+
+        function getUserLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(position => {
+                    userLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                    map.setCenter(userLocation);
+                    if (userMarker) userMarker.setMap(null);
+                    userMarker = new google.maps.Marker({
+                        position: userLocation,
+                        map: map,
+                        label: 'You'
+                    });
+                    searchNearby();
+                });
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        function openInGoogleMaps(lat, lng, name) {
+            const url = `https://www.google.com/maps/search/?api=1&query=${lat},${lng}&query_place_id=${name}`;
+            window.open(url, '_blank');
+        }
+
+        function searchNearby() {
+            const request = {
+                location: userLocation,
+                radius: 10000,
+                keyword: "hospital OR clinic OR doctor OR pharmacy OR medical OR health",
+            };
+
+            service.nearbySearch(request, (results, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK && results.length > 0) {
+                    results.forEach(place => {
+                        let marker = new google.maps.Marker({
+                            position: place.geometry.location,
+                            map: map,
+                            title: place.name
+                        });
+
+                        const infoWindow = new google.maps.InfoWindow({
+                            content: `
+                                <div style="font-family: Arial, sans-serif; padding: 10px; max-width: 200px;">
+                                    <h3 style="margin: 0 0 10px; color: #333; font-size: 16px;">${place.name}</h3>
+                                    <p style="margin: 0 0 10px; color: #666; font-size: 14px;">${place.vicinity}</p>
+                                    <button onclick="getDirectionsToPlace('${place.place_id}')" 
+                                            style="background-color: #6cc8a1; 
+                                                   color: white; 
+                                                   border: none; 
+                                                   padding: 8px 12px; 
+                                                   border-radius: 4px; 
+                                                   cursor: pointer; 
+                                                   font-size: 14px; 
+                                                   margin-right: 5px;
+                                                   transition: background-color 0.3s ease;">
+                                        Get Directions
+                                    </button>
+                                    <button onclick="openInGoogleMaps('${place.geometry.location.lat()}', '${place.geometry.location.lng()}', '${place.name}')" 
+                                            style="background-color: #4285F4; 
+                                                   color: white; 
+                                                   border: none; 
+                                                   margin-top: 5px;
+                                                   padding: 8px 12px; 
+                                                   border-radius: 4px; 
+                                                   cursor: pointer; 
+                                                   font-size: 14px;
+                                                   transition: background-color 0.3s ease;">
+                                        Open in Google Maps
+                                    </button>
+                                </div>
+                            `
+                        });
+
+
+
+                        marker.addListener("click", () => {
+                            selectedPlace = place;
+                            infoWindow.open(map, marker);
+                        });
+                    });
+                } else {
+                    alert("No health facilities found nearby.");
+                }
+            });
+        }
+
+        function getDirectionsToPlace(placeId) {
+            service.getDetails({
+                placeId: placeId
+            }, (place, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    const request = {
+                        origin: userLocation,
+                        destination: place.geometry.location,
+                        travelMode: 'DRIVING'
+                    };
+
+                    directionsService.route(request, (result, status) => {
+                        if (status === 'OK') {
+                            directionsRenderer.setDirections(result);
+                        } else {
+                            alert("Could not find directions: " + status);
+                        }
+                    });
+                }
+            });
+        }
+
+        function calculateRoute() {
+            if (!selectedPlace) {
+                alert("Select a health facility first!");
+                return;
+            }
+
+            const request = {
+                origin: userLocation,
+                destination: selectedPlace.geometry.location,
+                travelMode: 'DRIVING'
+            };
+
+            directionsService.route(request, (result, status) => {
+                if (status === 'OK') {
+                    directionsRenderer.setDirections(result);
+                } else {
+                    alert("Could not find directions: " + status);
+                }
+            });
+        }
+
+        window.onload = initMap;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

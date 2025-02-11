@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>TB Sahayak</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+
+
+
+:root {
+    --primary-blue: #4c8bf5;
+    --secondary-blue: #4d7dbb;
+    --nav-height: 80px;
+}
+
+.navbar {
+    background: linear-gradient(90deg, var(--primary-blue), var(--secondary-blue));
+    height: var(--nav-height);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+    padding: 0 1rem;
+}
+
+.navbar-brand {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    display: flex;
+    align-items: center;
+    transition: transform 0.3s ease;
+}
+
+.logo-icon {
+    font-size: 1.8rem;
+    margin-right: 0.8rem;
+    transform: rotate(0deg);
+    transition: transform 0.3s ease;
+}
+
+.navbar-brand:hover .logo-icon {
+    transform: rotate(-15deg);
+}
+
+.brand-text {
+    color: white;
+    font-size: 1.5rem;
+    position: relative;
+}
+
+.nav-link {
+    color: rgba(255,255,255,0.9) !important;
+    font-weight: 500;
+    padding: 0.8rem 1.2rem !important;
+    margin: 0 0.5rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: white;
+    transition: width 0.3s ease;
+}
+
+.nav-link:hover {
+    transform: translateY(-2px);
+    opacity: 1;
+}
+
+.nav-link:hover::before {
+    width: 100%;
+}
+
+.navbar-toggler {
+    border: none;
+    padding: 0.5rem;
+}
+
+.toggler-icon {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: white;
+    margin: 5px 0;
+    transition: all 0.3s ease;
+}
+
+.navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+}
+
+.navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar-toggler[aria-expanded="true"] .toggler-icon:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
+}
+
+/* Mobile Menu */
+@media (max-width: 991px) {
+    .navbar-collapse {
+        background: rgba(76, 139, 245, 0.95);
+        backdrop-filter: blur(10px);
+        padding: 1rem;
+        margin-top: 1rem;
+        border-radius: 10px;
+    }
+    
+    .nav-link {
+        margin: 0.5rem 0;
+        padding: 0.8rem 1rem !important;
+        border-radius: 8px;
+    }
+    
+    .nav-link:hover {
+        background: rgba(255,255,255,0.1);
+    }
+}
+
+
+
+
+
+        :root {
+            --primary-blue: #4c8bf5;
+            --secondary-blue: #4d7dbb;
+            --light-bg: #f8f9fa;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--light-bg);
+        }
+
+        .hero-section {
+            padding: 4rem 0;
+            background: linear-gradient(135deg, rgba(76, 139, 245, 0.1), rgba(77, 125, 187, 0.05));
+        }
+
+        .hero-content {
+            border-radius: 20px;
+            overflow: hidden;
+        }
+
+        .hero-text {
+            padding: 2rem;
+        }
+
+        .hero-image {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-image:hover {
+            transform: scale(1.02);
+        }
+
+        .highlight {
+            color: var(--primary-blue);
+            position: relative;
+            display: inline-block;
+        }
+
+        .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--secondary-blue);
+            border-radius: 2px;
+        }
+
+        .cta-button {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white !important;
+            padding: 0.75rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+            border: none;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(76, 139, 245, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar (Keep your existing navbar) -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container-fluid">
+          <!-- Brand with subtle animation -->
+          <a class="navbar-brand" href="#">
+              <span class="logo-icon">🩺</span>
+              <span class="brand-text">TB Sahayak</span>
+          </a>
+  
+          <!-- Hamburger Icon with animation -->
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+              <span class="toggler-icon"></span>
+              <span class="toggler-icon"></span>
+              <span class="toggler-icon"></span>
+          </button>
+  
+          <!-- Nav Items -->
+          <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                  <li class="nav-item">
+                      <a class="nav-link" href="/">Home</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/guide">Guide</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/find">Find Doctors</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/find">Symptoms</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/xray">X-ray</a>
+                  </li>
+                  <li class="nav-item">
+                      <a class="nav-link" href="/contact">Contact</a>
+                  </li>
+              </ul>
+          </div>
+      </div>
+  </nav>
+
+    <main class="hero-section">
+        <div class="container">
+            <div class="row align-items-center g-5">
+                <!-- Image Column -->
+                <div class="col-lg-6" style="padding-top: 4%;">
+                    <img src="/static/index.jpg" 
+                         class="hero-image img-fluid" 
+                         alt="Medical Illustration">
+                </div>
+
+                <!-- Text Content Column -->
+                <div class="col-lg-6">
+                    <div class="hero-text">
+                        <h1 class="display-4 mb-4">
+                            Welcome to <br>
+                            <span class="highlight">TB Sahayak</span>
+                        </h1>
+                        
+                        <p class="lead mb-4">
+                            Your AI-Powered Partner in Tuberculosis Care and Prevention
+                        </p>
+
+                        <div class="mb-5">
+                            <p class="fs-5">
+                                🛡️ Comprehensive TB detection and management<br>
+                                💡 AI-powered diagnostic support<br>
+                                📍 Personalized healthcare guidance
+                            </p>
+                        </div>
+
+                        <div class="d-flex gap-3">
+                            <a href="guide.html" class="cta-button">
+                                Get Started
+                            </a>
+                            <a href="xray.html" class="cta-button">
+                                Analyze X-ray
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Features Section -->
+    <div class="container py-5">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title mb-3">📋 Symptom Checker</h3>
+                        <p class="card-text">
+                            AI-powered symptom analysis with instant risk assessment
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title mb-3">🩺 Expert Guidance</h3>
+                        <p class="card-text">
+                            Comprehensive medical resources and treatment protocols
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-4">
+                <div class="card h-100 border-0 shadow-sm">
+                    <div class="card-body">
+                        <h3 class="card-title mb-3">🔍 X-ray Analysis</h3>
+                        <p class="card-text">
+                            Advanced AI detection of TB markers in chest radiographs
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer (Keep your existing footer) -->
+    <div style="background: #2c3e50; color: white; padding: 2rem; margin-top: 3rem;">
+      <div style="max-width: 1200px; margin: 0 auto; text-align: center;">
+          <!-- Contact Info -->
+          <div style="margin-bottom: 1rem;">
+              <p style="margin: 0.5rem 0;">
+                  📞 <a href="tel:+917738997464" style="color: white; text-decoration: none;">+91 77389 97464</a> | 
+                  📧 <a href="mailto:maskekunal.mk@gmail.com" style="color: white; text-decoration: none;">maskekunal.mk@gmail.com</a>
+              </p>
+          </div>
+          
+          <!-- Copyright -->
+          <div style="border-top: 1px solid #34495e; padding-top: 1rem;">
+              <p style="margin: 0; font-size: 0.9em;">
+                  © 2023 TB Sahayak. All rights reserved.
+                  <!-- For current year automatically: -->
+                  <!-- © <script>document.write(new Date().getFullYear())</script> TB Sahayak -->
+              </p>
+          </div>
+      </div>
+  </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
