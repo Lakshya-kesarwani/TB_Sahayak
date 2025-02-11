@@ -8,3 +8,4 @@ requests
 keras
 tensorflow
 joblib 
+scikit-learn
