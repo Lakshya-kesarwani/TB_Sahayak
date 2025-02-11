@@ -14,7 +14,7 @@ os.environ["QT_QPA_PLATFORM"] = "offscreen"
 
 app = Flask(__name__)
 CORS(app)
-MODEL_URL = "https://github.com/Lakshya-kesarwani/TB-Sahayak/releases/download/v1.0/tb_classifier.h5"
+MODEL_URL = "https://github.com/Lakshya-kesarwani/TB_Sahayak/releases/download/v1.0/tb_classifier.h5"
 MODEL_PATH = "tb_classifier.h5"
 
 # Global model variable
