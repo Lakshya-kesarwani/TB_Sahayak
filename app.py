@@ -117,9 +117,9 @@ def upload_xray():
         # Get model prediction
         prediction = tb_model.predict(image)
         prediction_result = round(float(prediction[0][0]) * 100, 2)  # Convert to percentage
-
+        result = f"{prediction_result:.2f} percent chances of TB."  
         # return render_template("xray.html", prediction=prediction_result)
-        return jsonify({"data":prediction_result})
+        return jsonify({"data":result})
 
     return render_template("xray.html")
 
@@ -146,11 +146,21 @@ def predict_symptom():
         new_patient_scaled = scaler.transform(new_patient)
         # Get TB probability
         tb_probability = float(loaded_model.predict(new_patient_scaled)[0][0])
+        tb_percentage = round(tb_probability * 100, 2)
         print(f"Probability of TB: {tb_probability:.2f}")
-        # Generate a random prediction (0 or 1)
-        prediction = random.choice(["No Disease", "Possible TB Detected"])
+        if tb_percentage > 75:
+             suggestion = f"High risk! Please visit a doctor immediately. {tb_percentage:.2f} percent chances of TB."
+        elif 40 <= tb_percentage <= 75:
+            suggestion = f"Moderate risk. It's advisable to consult a doctor soon. {tb_percentage:.2f} percent chances of TB."
+        elif 20 <= tb_percentage < 40:
+            suggestion =  f"Low risk, but stay cautious. Monitor symptoms and consider a check-up. {tb_percentage:.2f} percent chances of TB."
+        else:
+            suggestion = f"Very low risk. Stay healthy and maintain precautions. {tb_percentage:.2f} percent chances of TB."
 
-        return jsonify({"Prediction":tb_probability})
+
+        # Generate a random prediction (0 or 1)
+
+        return jsonify({"Prediction":suggestion})
 
     return render_template("symptoms.html")
 
