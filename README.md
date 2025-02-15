@@ -23,7 +23,6 @@ TB Sahayak is a web application designed to assist in the early detection and aw
 - **Frontend:** HTML, CSS, JavaScript, Bootstrap
 - **Backend:** Flask (Python)
 - **AI Model:** Deep Learning-based X-ray classification
-- **Database:** SQLite (if applicable)
 - **APIs Used:** Google Maps API for location services
 - **Deployment:** Railway
 
