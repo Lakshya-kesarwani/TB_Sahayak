@@ -1,80 +1,71 @@
-﻿# TB_Sahayak
+# TB Sahayak
 
-TB Sahayak is a **web-based tuberculosis (TB) diagnosis assistant** that allows users to **upload chest X-ray images** for **AI-based TB detection** and **locate nearby healthcare facilities** using Google Maps.
+TB Sahayak is a web application designed to assist in the early detection and awareness of Tuberculosis (TB). The platform allows users to upload chest X-rays for analysis using an AI model, provides symptom check functionality, and helps locate nearby healthcare facilities.
 
-## 🚀 Features
+## Features
 
-### 🔍 AI-Based TB Detection
-- Users can **upload a chest X-ray image**.
-- The system analyzes the image and predicts whether **TB is detected or not**.
-- Displays a **loading animation** while processing.
+### 🔍 AI-Powered X-ray Analysis
+- Upload a chest X-ray image to get a preliminary assessment.
+- Interactive loading animation while processing.
 
-### 📍 Google Maps Integration
-- Searches **hospitals, clinics, doctors, and pharmacies** nearby.
-- Uses **live location access** to show the closest healthcare facilities.
-- Users can **get directions** to a selected place.
+### 🏥 Find Nearby Healthcare Facilities
+- Locate hospitals, clinics, and pharmacies near your location.
+- Get directions to the nearest healthcare facility.
 
-### 🎨 UI & UX
-- **Bootstrap-based responsive design**.
-- **Smooth animations & Poppins font** for a clean look.
-- **Interactive loading animation** (spinner + typewriter effect for "Loading...").
+### 📋 Symptom Checker
+- Answer a few questions to assess symptoms.
+- Get guidance on potential next steps.
 
-## 🛠️ Tech Stack
+### 🗺️ IITGN Interactive Map
+- A campus-wide interactive map for better navigation.
 
-- **Frontend**: HTML, CSS, JavaScript, Bootstrap
-- **Backend**: Flask (Python)
-- **APIs**:
-  - Google Maps API (Places, Directions, Routes)
-  - Custom AI Model API for X-ray analysis
+## Tech Stack
+- **Frontend:** HTML, CSS, JavaScript, Bootstrap
+- **Backend:** Flask (Python)
+- **AI Model:** Deep Learning-based X-ray classification
+- **Database:** SQLite (if applicable)
+- **APIs Used:** Google Maps API for location services
+- **Deployment:** Railway
 
-## ⚙️ Installation & Setup
+## Deployment
+The project is deployed on **Railway**.
 
-1. **Clone the repository**
-   ```sh
-   git clone https://github.com/yourusername/tb-sahayak.git
-   cd tb-sahayak
-   ```
-2. **Set up a virtual environment**
-   ```sh
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-3. **Install dependencies**
-   ```sh
-   pip install -r requirements.txt
-   ```
-4. **Set up environment variables**
-   - Add your **Google Maps API key** to a `.env` file:
-     ```
-     GOOGLE_MAPS_API_KEY=your_api_key_here
-     ```
+🔗 **Live Version:** [TB Sahayak Deployment](https://tb-sahayak-production.up.railway.app/)
 
-5. **Run the Flask app**
-   ```sh
-   flask run
-   ```
-   The application will run on `http://127.0.0.1:5000/`
+**⚠️ Note:** The deployed version may experience downtime due to free-tier limitations on CPU and RAM.
 
-## 📌 How to Use
+## How to Run Locally
 
-1. **Upload an X-ray**: Click the upload button and select a chest X-ray image.
-2. **Wait for AI Prediction**: The system will process the image and display the result.
-3. **Find Nearby Healthcare**: Click on "Find Hospitals" to see available healthcare centers.
-4. **Get Directions**: Select a location and get navigation assistance.
+### Prerequisites
+Ensure you have the following installed:
+- Python 3.x
+- Flask
+- Required dependencies from `requirements.txt`
 
-## 🐞 Common Issues & Fixes
+### Installation Steps
+```sh
+# Clone the repository
+git clone https://github.com/your-repo-url.git
+cd tb-sahayak
 
-### ❌ X-ray Preview Not Loading
-- Ensure the `<img>` tag has a valid `src` after file selection.
-- Use JavaScript's `FileReader` to display the selected image.
+# Install dependencies
+pip install -r requirements.txt
 
-### ❌ Google Maps Not Displaying
-- Check if the **API key is correct** and enabled for `Maps JavaScript API`, `Places API`, and `Directions API`.
-- Ensure there are **no CORS or billing issues** on the Google Cloud Console.
+# Run the Flask application
+python app.py
+```
 
-## 📜 License
+## Future Enhancements
+- Improve AI model accuracy
+- Add a multilingual interface
+- Expand healthcare facility database
 
-This project is licensed under the **MIT License**.
+## Contributing
+Contributions are welcome! Feel free to fork the repository and submit a pull request.
+
+## License
+This project is licensed under the MIT License.
 
 ---
-Made with ❤️ for AI-driven healthcare assistance! 🚀
+🚀 **Developed with passion for public health and AI-driven solutions!**
+
